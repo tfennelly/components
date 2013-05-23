@@ -1,5 +1,6 @@
 rootProject.name = 'foxweave-components'
 
+include ':apachesolr'
 include ':cloudant'
 include ':mailchimp'
 include ':mysql'

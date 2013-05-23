@@ -1,0 +1,75 @@
+{
+    "displayName": "Apache Solr",
+    "smalllogo": "ui/images/favicon.ico",
+    "largelogo": "ui/images/largelogo.jpg",
+    "authDescriptor" : {
+        "title": "Apache Solr Instance",
+        "params": {
+            "accountName": {
+                "displayIndex": 1,
+                "label": "Server URL",
+                "value": "http://localhost:8983/solr",
+                "hint": "Apache Solr URL."
+            }
+        }
+    },
+    "httpDescriptor" : {
+        "baseUrl" : "${auth.accountName}",
+        "contentType": "application/json",
+        "objOperations" : {
+            "*" : {
+                "READ_INITIAL_MIGRATE, READ_CONTINUE_MIGRATE" : {
+                    "method": "GET",
+                    "url": "/${config.core_name}/${config.request_handler}",
+                    "params": {
+                        "q": "*:*",
+                        "wt": "json",
+                        "start": "${lastEvals.nextStart}",
+                        "rows": "10"
+                    },
+                    "evals": {
+                        "success": "response.notFail",
+                        "data": "response.json.response.docs",
+                        "nextStart": "response.json.response.start + 10"
+                    }
+                }
+            }
+        }
+    },
+    "components": [
+        {
+            "name": "apachesolr",
+            "displayName": "Apache Solr",
+            "whatitdoes": "Read documents from Apache Solr.",
+            "type": "InputConnector",
+            "category": "database",
+            "runtime": "com.foxweave.connector.http.SaaSInputConnector",
+            "poll_interval": 300000,
+            "smalllogo": "ui/images/favicon.ico",
+            "largelogo": "ui/images/largelogo.jpg",
+            "help": "ui/help/input-connector-help.html",
+            "supportsSync": false,
+            "supportsMigrate": true,
+            "supportsManualTrigger": true,
+            "allowedTargets": ["PAAS", "ONPREMISE"],
+            "configUI": {
+                "html": "ui/input-connector-ui.html",
+                "viewJs": "ui/connector.js"
+            },
+            "deps": [
+                {
+                    "groupId": "com.foxweave.connector",
+                    "artifactId": "http",
+                    "version": "0.1",
+                    "fileName": "/lib/foxweave-abstract-components-http-0.1.jar"
+                },
+                {
+                    "groupId": "com.foxweave",
+                    "artifactId": "apachesolr",
+                    "version": "0.1",
+                    "fileName": "/lib/foxweave-components-apachesolr-0.1.jar"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+<table>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td class="fieldName">Solr Instance:</td>
+                    <td>
+                        <div class="uiComp" alias="auth" />
+                    </td>
+                </tr>
+                <tr class="auth_selected">
+                    <td class="fieldName">Core:</td>
+                    <td>
+                        <input type="text" id="core_name" value="" class="validate[required]" title="Core Name." />
+                    </td>
+                </tr>
+                <tr class="auth_selected">
+                    <td class="fieldName">Request Handler (qt)</td>
+                    <td>
+                        <input type="text" id="request_handler" value="/select" class="validate[required]" title="Request Handler." />
+                    </td>
+                </tr>
+                <tr class="auth_selected">
+                    <td class="fieldName">Message Structure (JSON):</td>
+                    <td>
+                        <textarea rows="10" class="validate[required] text-input input-xxlarge produces validate-json" id="sample_message" title="Sample JSON Solr Row Structure. You can get this structure from the Solr query client.  This helps this component to interact with other components in the pipeline." />
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
